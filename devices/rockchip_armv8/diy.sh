@@ -5,7 +5,7 @@ SHELL_FOLDER=$(dirname $(readlink -f "$0"))
 
 bash $SHELL_FOLDER/../common/kernel_6.1.sh
 
-rm -rf package/boot
+rm -rf package/boot package/devel/kselftests-bpf
 
 git_clone_path master https://github.com/immortalwrt/immortalwrt package/boot
 
