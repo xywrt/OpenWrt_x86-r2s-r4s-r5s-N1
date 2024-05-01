@@ -196,7 +196,7 @@ index 231bca2b544..0c4b2c55d9a 100644
   	rk3566-soquartz-model-a.dtb \
   	rk3568-bpi-r2-pro.dtb \
   	rk3568-evb.dtb \
-@@ -26,6 +26,7 @@
+@@ -26,6 +26,8 @@
  +	rk3568-fastrhino-r68s.dtb \
   	rk3568-generic.dtb \
   	rk3568-lubancat-2.dtb \
