@@ -91,30 +91,16 @@ diff --git a/target/linux/mediatek/filogic/base-files/lib/upgrade/platform.sh b/
 index 62b7a209ed4059..cefe2ac853899c 100755
 --- a/target/linux/mediatek/filogic/base-files/lib/upgrade/platform.sh
 +++ b/target/linux/mediatek/filogic/base-files/lib/upgrade/platform.sh
-@@ -84,12 +84,8 @@ platform_do_upgrade() {
- 	bananapi,bpi-r3-mini|\
- 	bananapi,bpi-r4|\
- 	bananapi,bpi-r4-poe|\
--	mediatek,mt7988a-rfb|\
- 	jdcloud,re-cp-03|\
--	tplink,tl-xdr4288|\
--	tplink,tl-xdr6086|\
--	tplink,tl-xdr6088|\
--	xiaomi,redmi-router-ax6000-ubootmod)
-+	mediatek,mt7988a-rfb)
- 		[ -e /dev/fit0 ] && fitblk /dev/fit0
- 		[ -e /dev/fitrw ] && fitblk /dev/fitrw
- 		bootdev="$(fitblk_get_bootdev)"
-@@ -147,7 +143,11 @@ platform_do_upgrade() {
+@@ -150,6 +150,12 @@ platform_do_upgrade() {
  		CI_UBIPART="ubi0"
  		nand_do_upgrade "$1"
  		;;
--	nokia,ea0326gmp)
-+	nokia,ea0326gmp|\
-+	tplink,tl-xdr4288|\
-+	tplink,tl-xdr6086|\
-+	tplink,tl-xdr6088|\
-+	xiaomi,redmi-router-ax6000-ubootmod)
- 		[ -e /dev/fit0 ] && fitblk /dev/fit0
- 		[ -e /dev/fitrw ] && fitblk /dev/fitrw
- 		CI_KERNPART="fit"
++	nokia,ea0326gmp)
++		[ -e /dev/fit0 ] && fitblk /dev/fit0
++		[ -e /dev/fitrw ] && fitblk /dev/fitrw
++		CI_KERNPART="fit"
++		nand_do_upgrade "$1"
++		;;
+ 	ubnt,unifi-6-plus)
+ 		CI_KERNPART="kernel0"
+ 		EMMC_ROOT_DEV="$(cmdline_get_var root)"
