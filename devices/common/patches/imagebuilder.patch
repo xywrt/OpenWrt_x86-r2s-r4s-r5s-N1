@@ -93,7 +93,7 @@
  
  _call_manifest: FORCE
  	rm -rf $(TARGET_DIR)
-@@ -186,7 +206,17 @@ package_install: FORCE
+@@ -186,7 +206,23 @@ package_install: FORCE
  	@echo Installing packages...
  	$(OPKG) install $(firstword $(wildcard $(LINUX_DIR)/libc_*.ipk $(PACKAGE_DIR)/libc_*.ipk))
  	$(OPKG) install $(firstword $(wildcard $(LINUX_DIR)/kernel_*.ipk $(PACKAGE_DIR)/kernel_*.ipk))
@@ -106,13 +106,19 @@
 +	if [[ "`echo "$(BUILD_PACKAGES)" | grep "usb"`" ]]; then \
 +		packages+="automount "; \
 +	fi; \
++	IMAGE_SIZE="$(shell echo $$(echo $($(USER_PROFILE)_IMAGE_SIZE) | cut -d k -f1))"; \
++	if [[ ! "`echo "$$IMAGE_SIZE" | grep "m"`" ]]; then \
++	if [[ $$IMAGE_SIZE -lt 20480 ]]; then \
++		packages+="-coremark -htop -bash -openssh-sftp-server "; \
++	fi \
++	fi; \
 +	$(OPKG) install $(BUILD_PACKAGES) luci-i18n-base-zh-cn luci-i18n-base-en; \
 +	$(OPKG) install $$packages || true
 +	$(OPKG) install --force-maintainer --force-reinstall my-default-settings
  
  prepare_rootfs: FORCE
  	@echo
-@@ -200,12 +230,18 @@ prepare_rootfs: FORCE
+@@ -200,12 +236,18 @@ prepare_rootfs: FORCE
  		) \
  	)
  	$(call prepare_rootfs,$(TARGET_DIR),$(USER_FILES),$(DISABLED_SERVICES))
